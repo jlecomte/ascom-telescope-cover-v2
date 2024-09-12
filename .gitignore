@@ -1,0 +1,21 @@
+# Mac OS X files
+.DS_Store
+
+# FreeCAD backup files
+*.FCStd1
+*.FCBak
+
+# Inno Setup Installer
+Installer/*.exe
+
+# Object files
+ASCOM_Driver/bin/
+ASCOM_Driver/obj/
+Control_App/bin/
+Control_App/obj/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# User-specific files
+*.user

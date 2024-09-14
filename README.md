@@ -95,13 +95,12 @@ Open Microsoft Visual Studio as an administrator (right click on the Microsoft V
 
 ### Microcontroller Compatibility
 
-Pretty much all Arduino-compatible boards should work. There is nothing magical about the firmware. However, this was developer for, and tested with a [Seeeduino XIAO](https://www.seeedstudio.com/Seeeduino-XIAO-Arduino-Microcontroller-SAMD21-Cortex-M0+-p-4426.html), so that is what I recommend for this project.
+Pretty much all Arduino-compatible boards should work. There is nothing magical about the firmware. However, this was developed for, and tested with a [Seeeduino XIAO](https://www.seeedstudio.com/Seeeduino-XIAO-Arduino-Microcontroller-SAMD21-Cortex-M0+-p-4426.html), so that is what I recommend for this project.
 
 ### Compiling And Uploading The Firmware
 
 * If needed, add support for the board that you are using in your project.
-* You may want to customize the name of the device when connected to your computer. To do that, you will have to update the appropriate `usb_product` key in the appropriate `boards.txt` file... I cannot give you specific instructions for that because they depend on the exact board you are using.
-* Finally, connect your board to your computer using a USB cable, open the sketch file located at `Arduino_Firmware\Arduino_Firmware.ino`, and click on the `Upload` button in the toolbar.
+* Then, connect your board to your computer using a USB cable, open the sketch file located at `Arduino_Firmware\Arduino_Firmware.ino`, and click on the `Upload` button in the toolbar.
 
 ### Calibration Procedure
 
@@ -121,7 +120,7 @@ Here is the routed PCB in KiCad:
 
 ![Routed PCB in KiCad](images/PCB-kicad.png)
 
-**Note:** You can directly use [PCBWay.zip](KiCad_Project/PCBWay.zip) to order your PCB from [PCBWay](https://www.pcbway.com/).
+**Note:** You can directly use [PCBWay.zip](KiCad_Project/PCBWay.zip) to order your PCB from [PCB Way](https://www.pcbway.com/).
 
 Once you've received your PCB and soldered all the components, it should look like the following:
 

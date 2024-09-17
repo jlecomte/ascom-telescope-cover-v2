@@ -21,6 +21,9 @@ I do not charge anything to create and maintain these open-source projects. But 
 - [Electronic Circuit](#electronic-circuit)
 - [3D Model](#3d-model)
 - [Using With NINA](#using-with-nina)
+- [Known Issues](#known-issues)
+  * [Device Access Synchronization](#device-access-synchronization)
+- [Ideas For Improvements](#ideas-for-improvements)
 
 <!-- tocstop -->
 
@@ -38,7 +41,7 @@ This project is an updated version of [my original ASCOM-compatible telescope co
 * **Analog Position Feedback:** If you happened to power up my original ASCOM-compatible telescope cover while it was not in its closed position, it would violently close because it assumed that it was in a closed position at startup. This is now fully resolved by using a servo with analog position feedback. Note that this feedback loop needs to be calibrated once.
 * **Magnets:** The cover will be held in place (in either open or closed position) by magnets, which means that the servo can be powered off when it is not moving, thereby completely eliminating the possibility of vibrations while imaging.
 * **PCB:** This new project uses a PCB that can be manufactured by a company like [PCB Way](https://www.pcbway.com/). This means that the final product is more compact and more reliable than when using a perforated circuit board as in my original project.
-* **Spectral Calibrator:** This project includes neon bulbs that can be remotely turned on or off. This is especially useful when doing spectroscopy. **Note:** You could technically modify this project to eliminate this (if you don't need it) or replace it with an EL panel if you would like to create a motorized flat panel. I have no need for this because I have [a wireless flat panel](https://github.com/jlecomte/ascom-wireless-flat-panel) and I don't operate my equipment remotely.
+* **Spectral Calibrator:** This project includes neon bulbs that can be remotely turned on or off. This is especially useful when doing spectroscopy. **Note:** You could technically modify this project to eliminate this (if you don't need it) or replace it with an EL panel if you would like to create a motorized flat panel. I have no need for this because I have [a wireless flat panel](https://github.com/jlecomte/ascom-wireless-flat-panel) and while I do operate my equipment remotely, it is not located in a remote location (it is in my backyard, but it is nice to be able to fully control it from inside the house, or using a fully automated sequence).
 * **Better 3D Model:** This new version comes with a much improved 3D model and the final product is much sturdier than my original version. It also provides a simpler and cleaner attachment method to the OTA.
 * **Single Cable:** This new version only requires a USB type C cable connection for both power and data, whereas my original version required two cables (USB type C and 12V power)
 
@@ -104,7 +107,7 @@ Pretty much all Arduino-compatible boards should work. There is nothing magical 
 
 ### Calibration Procedure
 
-This is a one-time operation. Disconnect the right arm from the servo. Then, From the Arduino IDE, connect to the device. Using the Arduino IDE serial monitor, type `COMMAND:COVER:CALIBRATE`. This will launch the calibration procedure for the servo analog feedback. Once it has completed, re-attach the right arm to the servo. The device is now ready to be used.
+This is a one-time operation. Disconnect the right arm from the servo. Then, from the Arduino IDE, connect to the device. Using the Arduino IDE serial monitor, type `COMMAND:COVER:CALIBRATE`. This will launch the calibration procedure for the servo analog feedback. Once it has completed, re-attach the right arm to the servo. The device is now ready to be used.
 
 ## Electronic Circuit
 
@@ -153,3 +156,17 @@ Once you have installed the driver, open NINA, go to the `Equipment` tab and sel
 Then, you can connect to the device, and all the standard controls should appear, allowing you to test and use your device. Enjoy!
 
 ![NINA Screenshot 2](images/NINA-screenshot-2.png)
+
+## Known Issues
+
+### Device Access Synchronization
+
+I made sure that access to the serial port was synchronized, thereby preventing a second serial command from being sent if the reply to the first one has not yet been received. However, that code only works in multi-threaded applications. It will not work as expected if the same device is used by two different applications (i.e., processes) as they will each have their own instance of the ASCOM driver, and therefore their own locking object. Indeed, I opted to use the tried-and-true approach of implementing ASCOM drivers (output as a Class Library). Switching to a local COM server would have allowed me to resolve this relatively minor issue, but it seemed overkill for my use case.
+
+## Ideas For Improvements
+
+* Add a physical button (or several buttons) to manually control the device could be a relatively simple enhancement.
+* Leverage a small embedded LiPo battery and use BLE for communication, thereby completely removing the need for a USB cable.
+* Make the 3D model more scalable so that it can be easily adapted to various telescopes.
+
+**Note:** These are just ideas for you, in case you would like to challenge yourself. I am not planning to implement any of these ideas.

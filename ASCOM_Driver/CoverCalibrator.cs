@@ -277,7 +277,7 @@ namespace ASCOM.DarkSkyGeek
 
                     Debug.Assert(objSerial == null);
 
-                    using (Profile driverProfile = new Profile())
+                    using (Profile driverProfile = new Profile() { DeviceType = "CoverCalibrator" })
                     {
                         Serial serial = null;
 
@@ -285,8 +285,6 @@ namespace ASCOM.DarkSkyGeek
 
                         if (autoDetectComPort)
                         {
-                            driverProfile.DeviceType = "CoverCalibrator";
-
                             // See if the last successfully connected COM port can be used first...
                             // This is a performance optimization that significantly reduces the time it takes to connect!
                             string lastComPort = driverProfile.GetValue(driverID, lastComPortProfileName, string.Empty, string.Empty);

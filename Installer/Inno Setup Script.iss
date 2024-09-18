@@ -1,6 +1,6 @@
 #define MyAppPublisher "Dark Sky Geek"
 #define MyAppName "Telescope Cover & Spectral Calibrator"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppURL "https://github.com/jlecomte/ascom-telescope-cover-v2"
 
 [Setup]

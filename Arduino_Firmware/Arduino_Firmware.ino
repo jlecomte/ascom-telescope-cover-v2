@@ -128,6 +128,11 @@ void setup() {
     coverState = closed;
   } else {
     // Close the cover, in case it is not completely closed.
+    // To make sure that `closeCover` does not have an undefined behavior,
+    // we initialize the `coverState` variable to `open`, just in case.
+    // That variable will be updated in the `closeCover` function,
+    // and then again once the cover has completely closed.
+    coverState = open;
     closeCover(false);
   }
 }
@@ -178,11 +183,13 @@ void loop() {
       if (coverState == opening) {
         servo_position++;
         if (servo_position >= 180) {
+          servo_position = 180;
           coverState = open;
         }
       } else if (coverState == closing) {
         servo_position--;
         if (servo_position <= 0) {
+          servo_position = 0;
           coverState = closed;
         }
       }
@@ -335,6 +342,13 @@ int powerUpServo() {
 
     int feedbackValue = analogRead(SERVO_FEEDBACK_PIN);
     pos = (int)((feedbackValue - servoCalibrationData.intercept) / servoCalibrationData.slope);
+
+    // Deal with slight errors in the calibration process...
+    if (pos < 0) {
+      pos = 0;
+    } else if (pos > 180) {
+      pos = 180;
+    }
   }
 
   // This step is critical! Without it, the servo does not know its position when it is attached below,

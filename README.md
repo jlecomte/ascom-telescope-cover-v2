@@ -131,7 +131,7 @@ Once you've received your PCB and soldered all the components, it should look li
 
 ## 3D Model
 
-:warning: **IMPORTANT:** :warning: The 3D model is not really parametric. Therefore, it will NOT scale well. Be warned that I will NOT provide any support for the 3D model, i.e., you are on your own. If you open an issue relating to the 3D model, I will close it (while I will provide adequate support for everything else in this project...)
+:warning: **IMPORTANT:** :warning: The 3D model is parametric and will scale within a reasonable range of values for the `OTA Outside Diameter` and `OTA Thickness` pareneters (see the `Parameters` spreadsheet in the 3D model for more details...) However, FreeCAD being FreeCAD, be warned that if you change the value of a parameter multiple times, you may get a model error. Simply close the model without saving it, reopen it, and set the parameter you want to change, e.g., the `OTA Outside Diameter` parameter, to the appropriate value. The model *should* scale properly.
 
 Here is what the 3D model looks like in FreeCAD:
 
